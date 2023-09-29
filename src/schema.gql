@@ -21,12 +21,12 @@ type Mutation {
 }
 
 input CreateGastoInput {
-  """Example field (placeholder)"""
-  exampleField: Int!
+  monto: Float!
+  categoria: String!
 }
 
 input UpdateGastoInput {
-  """Example field (placeholder)"""
-  exampleField: Int
+  monto: Float
+  categoria: String
   id: Int!
 }

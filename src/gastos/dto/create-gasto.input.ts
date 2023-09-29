@@ -1,7 +1,17 @@
-import { InputType, Int, Field } from '@nestjs/graphql';
+import { InputType, Field, Float } from '@nestjs/graphql';
+import { IsNotEmpty, IsNumber, IsString } from 'class-validator';
 
 @InputType()
 export class CreateGastoInput {
-  @Field(() => Int, { description: 'Example field (placeholder)' })
-  exampleField: number;
+  
+  @Field(() => Float)
+  @IsNotEmpty()
+  @IsNumber()
+  monto: number;
+
+  @Field(() => String)
+  @IsNotEmpty()
+  @IsString()
+  categoria: string;
+
 }

@@ -9,12 +9,14 @@ export class GastosResolver {
   constructor(private readonly gastosService: GastosService) {}
 
   @Mutation(() => Gasto)
-  createGasto(@Args('createGastoInput') createGastoInput: CreateGastoInput) {
+  async createGasto(
+    @Args('createGastoInput') createGastoInput: CreateGastoInput,
+  ): Promise<Gasto> {
     return this.gastosService.create(createGastoInput);
   }
 
   @Query(() => [Gasto], { name: 'gastos' })
-  findAll() {
+  async findAll(): Promise<Gasto[]> {
     return this.gastosService.findAll();
   }
 

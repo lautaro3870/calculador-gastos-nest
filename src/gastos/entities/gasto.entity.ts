@@ -15,7 +15,7 @@ export class Gasto {
   @Column()
   @Field(() => String)
   categoria: string;
-
+  
   @Column({default: true})
   @Field(() => String)
   estado: boolean;
