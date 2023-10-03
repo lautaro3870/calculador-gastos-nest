@@ -6,18 +6,20 @@ type Gasto {
   id: ID!
   monto: Float!
   categoria: String!
+  fecha: String!
   estado: String!
 }
 
 type Query {
   gastos: [Gasto!]!
+  gastosPorMes(mes: Int!, anio: Int!): [Gasto!]!
   gasto(id: Int!): Gasto!
 }
 
 type Mutation {
   createGasto(createGastoInput: CreateGastoInput!): Gasto!
   updateGasto(updateGastoInput: UpdateGastoInput!): Gasto!
-  removeGasto(id: Int!): Gasto!
+  removeGasto(id: ID!): Gasto!
 }
 
 input CreateGastoInput {

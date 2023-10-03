@@ -24,12 +24,16 @@ import { TypeOrmModule } from '@nestjs/typeorm';
       username: process.env.PGUSER,
       password: process.env.PGPASSWORD,
       database: process.env.PGDATABASE,
-      // synchronize: true,
-      autoLoadEntities: true
+      synchronize: true,
+      autoLoadEntities: true,
+      ssl: {
+        requestCert: true
+      }
     }),
     GastosModule,
   ],
   controllers: [],
+
   providers: [],
 })
 export class AppModule {}

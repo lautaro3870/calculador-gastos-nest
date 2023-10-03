@@ -1,4 +1,4 @@
-import { Resolver, Query, Mutation, Args, Int } from '@nestjs/graphql';
+import { Resolver, Query, Mutation, Args, Int, ID } from '@nestjs/graphql';
 import { GastosService } from './gastos.service';
 import { Gasto } from './entities/gasto.entity';
 import { CreateGastoInput } from './dto/create-gasto.input';
@@ -20,6 +20,14 @@ export class GastosResolver {
     return this.gastosService.findAll();
   }
 
+  @Query(() => [Gasto], { name: 'gastosPorMes' })
+  async findGastosPorMes(
+    @Args('mes', { type: () => Int }) mes: number,
+    @Args('anio', { type: () => Int }) anio: number,
+  ): Promise<Gasto[]> {
+    return this.gastosService.findGastosPorMes(mes, anio);
+  }
+
   @Query(() => Gasto, { name: 'gasto' })
   findOne(@Args('id', { type: () => Int }) id: number) {
     return this.gastosService.findOne(id);
@@ -31,7 +39,7 @@ export class GastosResolver {
   }
 
   @Mutation(() => Gasto)
-  removeGasto(@Args('id', { type: () => Int }) id: number) {
+  async removeGasto(@Args('id', { type: () => ID }) id: string): Promise<Gasto> {
     return this.gastosService.remove(id);
   }
 }

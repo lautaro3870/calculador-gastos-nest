@@ -8,13 +8,17 @@ export class Gasto {
   @Field(() => ID)
   id: string;
 
-  @Column()
+  @Column({type: "double precision"})
   @Field(() => Float)
   monto: number;
 
   @Column()
   @Field(() => String)
   categoria: string;
+
+  @Column({type: "date", default: () => "CURRENT_DATE"})
+  @Field(() => String)
+  fecha: Date
   
   @Column({default: true})
   @Field(() => String)

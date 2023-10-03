@@ -7,10 +7,9 @@ import { InjectRepository } from '@nestjs/typeorm';
 
 @Injectable()
 export class GastosService {
-
   constructor(
     @InjectRepository(Gasto)
-    private readonly gastosRepository: Repository<Gasto>
+    private readonly gastosRepository: Repository<Gasto>,
   ) {}
 
   async create(createGastoInput: CreateGastoInput): Promise<Gasto> {
@@ -19,7 +18,21 @@ export class GastosService {
   }
 
   async findAll(): Promise<Gasto[]> {
-    return await this.gastosRepository.find()
+    return await this.gastosRepository.find();
+  }
+
+  async findGastosPorMes(mes: number, anio: number): Promise<Gasto[]> {
+    // const sql = `SELECT *
+    //             FROM gastos
+    //             WHERE EXTRACT(MONTH FROM fecha) = 10
+    //             AND EXTRACT(YEAR FROM fecha) = 2023;`
+
+    const result = await this.gastosRepository
+      .createQueryBuilder('gasto')
+      .where('EXTRACT(MONTH FROM fecha) = :mes', { mes })
+      .andWhere('EXTRACT(YEAR FROM fecha) = :anio', { anio });
+
+    return result.getMany();
   }
 
   findOne(id: number) {
@@ -30,7 +43,9 @@ export class GastosService {
     return `This action updates a #${id} gasto`;
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} gasto`;
+  async remove(id: string): Promise<Gasto> {
+    const gasto = await this.gastosRepository.findOneBy({ id });
+    await this.gastosRepository.remove(gasto);
+    return {...gasto, id};
   }
 }
