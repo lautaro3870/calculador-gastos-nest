@@ -33,13 +33,22 @@ export class GastosResolver {
     return this.gastosService.findOne(id);
   }
 
+  @Query(() => [Gasto], { name: 'gastosPorCategoria' })
+  async findGastosPorCategoria(
+    @Args('categoria', { type: () => String }) categoria: string,
+  ): Promise<Gasto[]> {
+    return await this.gastosService.findGastosPorCategoria(categoria);
+  }
+
   @Mutation(() => Gasto)
   updateGasto(@Args('updateGastoInput') updateGastoInput: UpdateGastoInput) {
     return this.gastosService.update(updateGastoInput.id, updateGastoInput);
   }
 
   @Mutation(() => Gasto)
-  async removeGasto(@Args('id', { type: () => ID }) id: string): Promise<Gasto> {
+  async removeGasto(
+    @Args('id', { type: () => ID }) id: string,
+  ): Promise<Gasto> {
     return this.gastosService.remove(id);
   }
 }

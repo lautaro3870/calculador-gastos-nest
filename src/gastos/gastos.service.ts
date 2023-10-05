@@ -22,17 +22,16 @@ export class GastosService {
   }
 
   async findGastosPorMes(mes: number, anio: number): Promise<Gasto[]> {
-    // const sql = `SELECT *
-    //             FROM gastos
-    //             WHERE EXTRACT(MONTH FROM fecha) = 10
-    //             AND EXTRACT(YEAR FROM fecha) = 2023;`
-
     const result = await this.gastosRepository
       .createQueryBuilder('gasto')
       .where('EXTRACT(MONTH FROM fecha) = :mes', { mes })
       .andWhere('EXTRACT(YEAR FROM fecha) = :anio', { anio });
 
     return result.getMany();
+  }
+
+  async findGastosPorCategoria(categoria: string): Promise<Gasto[]> {
+    return await this.gastosRepository.find({where: {categoria}})
   }
 
   findOne(id: number) {

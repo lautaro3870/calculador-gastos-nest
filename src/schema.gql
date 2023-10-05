@@ -14,6 +14,7 @@ type Query {
   gastos: [Gasto!]!
   gastosPorMes(mes: Int!, anio: Int!): [Gasto!]!
   gasto(id: Int!): Gasto!
+  gastosPorCategoria(categoria: String!): [Gasto!]!
 }
 
 type Mutation {
