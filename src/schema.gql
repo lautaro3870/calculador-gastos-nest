@@ -10,8 +10,21 @@ type Gasto {
   estado: String!
 }
 
+type GastosCategoriaMes {
+  mes: String!
+  super: Float!
+  cafe: Float!
+  bondi: Float!
+  metro: Float!
+  bar: Float!
+  boludeces: Float!
+  ropa: Float!
+  otros: Float!
+}
+
 type Query {
   gastos: [Gasto!]!
+  gastosPorCategoriaYMes: [GastosCategoriaMes!]!
   gastosPorMes(mes: Int!, anio: Int!): [Gasto!]!
   gasto(id: Int!): Gasto!
   gastosPorCategoria(categoria: String!): [Gasto!]!

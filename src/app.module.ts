@@ -33,7 +33,6 @@ import { TypeOrmModule } from '@nestjs/typeorm';
     GastosModule,
   ],
   controllers: [],
-
   providers: [],
 })
 export class AppModule {}

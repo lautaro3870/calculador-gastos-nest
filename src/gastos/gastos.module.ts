@@ -7,5 +7,6 @@ import { Gasto } from './entities/gasto.entity';
 @Module({
   providers: [GastosResolver, GastosService],
   imports: [TypeOrmModule.forFeature([Gasto])],
+  controllers: []
 })
 export class GastosModule {}

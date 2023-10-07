@@ -3,6 +3,7 @@ import { GastosService } from './gastos.service';
 import { Gasto } from './entities/gasto.entity';
 import { CreateGastoInput } from './dto/create-gasto.input';
 import { UpdateGastoInput } from './dto/update-gasto.input';
+import { GastosCategoriaMes } from './dto/gastos-categoria-mes';
 
 @Resolver(() => Gasto)
 export class GastosResolver {
@@ -18,6 +19,11 @@ export class GastosResolver {
   @Query(() => [Gasto], { name: 'gastos' })
   async findAll(): Promise<Gasto[]> {
     return this.gastosService.findAll();
+  }
+
+  @Query(() => [GastosCategoriaMes], {name: "gastosPorCategoriaYMes"})
+  async findGastoPorCategoriaMes(): Promise<GastosCategoriaMes[]> {
+    return await this.gastosService.findGastosPorCategoriaMes()
   }
 
   @Query(() => [Gasto], { name: 'gastosPorMes' })
