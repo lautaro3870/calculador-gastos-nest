@@ -28,4 +28,7 @@ export class GastosCategoriaMes {
 
     @Field(() => Float)
     otros: number;
+
+    @Field(() => Float)
+    total: number;
 }

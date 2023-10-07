@@ -45,7 +45,8 @@ export class GastosService {
                     COALESCE(SUM(CASE WHEN categoria = 'Boludeces' THEN monto ELSE 0 END), 0) AS Boludeces,
                     COALESCE(SUM(CASE WHEN categoria = 'Metro' THEN monto ELSE 0 END), 0) AS Metro,
                     COALESCE(SUM(CASE WHEN categoria = 'Bondi' THEN monto ELSE 0 END), 0) AS Bondi,
-                    COALESCE(SUM(CASE WHEN categoria = 'Otros' THEN monto ELSE 0 END), 0) AS Otros
+                    COALESCE(SUM(CASE WHEN categoria = 'Otros' THEN monto ELSE 0 END), 0) AS Otros,
+                    SUM(monto) AS Total
                     FROM
                         gastos
                     GROUP BY
