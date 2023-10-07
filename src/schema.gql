@@ -11,6 +11,7 @@ type Gasto {
 }
 
 type GastosCategoriaMes {
+  id: Int!
   mes: String!
   super: Float!
   cafe: Float!

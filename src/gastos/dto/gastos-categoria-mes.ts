@@ -1,7 +1,11 @@
-import { Field, Float, ObjectType } from "@nestjs/graphql";
+import { Field, Float, Int, ObjectType } from "@nestjs/graphql";
 
 @ObjectType()
 export class GastosCategoriaMes { 
+
+    @Field(() => Int)
+    id: number;
+
     @Field(() => String)
     mes: string;
 

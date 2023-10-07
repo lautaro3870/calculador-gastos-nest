@@ -37,6 +37,7 @@ export class GastosService {
 
   async findGastosPorCategoriaMes(): Promise<GastosCategoriaMes[]> {
     const query = `SELECT
+                    ROW_NUMBER() OVER () AS id,
                     EXTRACT(month from fecha) as Mes ,
                     COALESCE(SUM(CASE WHEN categoria = 'Super' THEN monto ELSE 0 END), 0) AS Super,
                     COALESCE(SUM(CASE WHEN categoria = 'Cafe' THEN monto ELSE 0 END) , 0) AS Cafe,
