@@ -60,7 +60,7 @@ export class GastosService {
   }
 
   async removeAll() {
-    await this.gastosRepository.update({}, {estado: true})
+    await this.gastosRepository.update({}, {estado: false})
     return true;
   }
 
