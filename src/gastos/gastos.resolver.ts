@@ -46,9 +46,9 @@ export class GastosResolver {
     return await this.gastosService.findGastosPorCategoria(categoria);
   }
 
-  @Mutation(() => Gasto)
-  updateGasto(@Args('updateGastoInput') updateGastoInput: UpdateGastoInput) {
-    return this.gastosService.update(updateGastoInput.id, updateGastoInput);
+  @Query(() => Boolean)
+  async removeAll(): Promise<boolean> {
+    return await this.gastosService.removeAll();
   }
 
   @Mutation(() => Gasto)

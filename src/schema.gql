@@ -30,21 +30,15 @@ type Query {
   gastosPorMes(mes: Int!, anio: Int!): [Gasto!]!
   gasto(id: Int!): Gasto!
   gastosPorCategoria(categoria: String!): [Gasto!]!
+  removeAll: Boolean!
 }
 
 type Mutation {
   createGasto(createGastoInput: CreateGastoInput!): Gasto!
-  updateGasto(updateGastoInput: UpdateGastoInput!): Gasto!
   removeGasto(id: ID!): Gasto!
 }
 
 input CreateGastoInput {
   monto: Float!
   categoria: String!
-}
-
-input UpdateGastoInput {
-  monto: Float
-  categoria: String
-  id: Int!
 }

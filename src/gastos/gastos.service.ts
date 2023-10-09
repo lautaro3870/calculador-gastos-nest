@@ -19,7 +19,7 @@ export class GastosService {
   }
 
   async findAll(): Promise<Gasto[]> {
-    return await this.gastosRepository.find();
+    return await this.gastosRepository.find({where: {estado: true}});
   }
 
   async findGastosPorMes(mes: number, anio: number): Promise<Gasto[]> {
@@ -27,7 +27,6 @@ export class GastosService {
       .createQueryBuilder('gasto')
       .where('EXTRACT(MONTH FROM fecha) = :mes', { mes })
       .andWhere('EXTRACT(YEAR FROM fecha) = :anio', { anio });
-
     return result.getMany();
   }
 
@@ -52,7 +51,6 @@ export class GastosService {
                         gastos
                     GROUP BY
                     EXTRACT(month from fecha)`;
-    debugger
     const result = await this.gastosRepository.query(query);
     return result;
   }
@@ -61,8 +59,9 @@ export class GastosService {
     return `This action returns a #${id} gasto`;
   }
 
-  update(id: number, updateGastoInput: UpdateGastoInput) {
-    return `This action updates a #${id} gasto`;
+  async removeAll() {
+    await this.gastosRepository.update({}, {estado: true})
+    return true;
   }
 
   async remove(id: string): Promise<Gasto> {
