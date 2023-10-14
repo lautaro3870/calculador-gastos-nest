@@ -4,11 +4,13 @@ import { Gasto } from './entities/gasto.entity';
 import { CreateGastoInput } from './dto/create-gasto.input';
 import { UpdateGastoInput } from './dto/update-gasto.input';
 import { GastosCategoriaMes } from './dto/gastos-categoria-mes';
+import { GastosDiarios } from './dto/gastos-diarios';
 
 @Resolver(() => Gasto)
 export class GastosResolver {
   constructor(private readonly gastosService: GastosService) {}
 
+  //------------------ Mutaciones
   @Mutation(() => Gasto)
   async createGasto(
     @Args('createGastoInput') createGastoInput: CreateGastoInput,
@@ -16,6 +18,14 @@ export class GastosResolver {
     return this.gastosService.create(createGastoInput);
   }
 
+  @Mutation(() => Gasto)
+  async removeGasto(
+    @Args('id', { type: () => ID }) id: string,
+  ): Promise<Gasto> {
+    return this.gastosService.remove(id);
+  }
+
+  //------------------ Queries
   @Query(() => [Gasto], { name: 'gastos' })
   async findAll(): Promise<Gasto[]> {
     return this.gastosService.findAll();
@@ -51,10 +61,8 @@ export class GastosResolver {
     return await this.gastosService.removeAll();
   }
 
-  @Mutation(() => Gasto)
-  async removeGasto(
-    @Args('id', { type: () => ID }) id: string,
-  ): Promise<Gasto> {
-    return this.gastosService.remove(id);
-  }
+  @Query(() => [GastosDiarios], {name: "gastosDiarios"})
+  async getGastosDiario(): Promise<GastosDiarios[]> {
+    return await this.gastosService.getGastosDiarios();
+  } 
 }

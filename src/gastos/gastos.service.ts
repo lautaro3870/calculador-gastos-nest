@@ -5,6 +5,7 @@ import { Gasto } from './entities/gasto.entity';
 import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import { GastosCategoriaMes } from './dto/gastos-categoria-mes';
+import { GastosDiarios } from './dto/gastos-diarios';
 
 @Injectable()
 export class GastosService {
@@ -13,13 +14,9 @@ export class GastosService {
     private readonly gastosRepository: Repository<Gasto>,
   ) {}
 
-  async create(createGastoInput: CreateGastoInput): Promise<Gasto> {
-    const newGasto = this.gastosRepository.create(createGastoInput);
-    return await this.gastosRepository.save(newGasto);
-  }
-
+  // -------------- Queries
   async findAll(): Promise<Gasto[]> {
-    return await this.gastosRepository.find({where: {estado: true}});
+    return await this.gastosRepository.find({ where: { estado: true } });
   }
 
   async findGastosPorMes(mes: number, anio: number): Promise<Gasto[]> {
@@ -55,12 +52,25 @@ export class GastosService {
     return result;
   }
 
+  async getGastosDiarios(): Promise<GastosDiarios[]> {
+    const query = `select sum(monto) AS suma, fecha AS fecha, extract(month from fecha) AS mes
+                    from gastos
+                    group by fecha, extract(month from fecha)`;
+    return await this.gastosRepository.query(query);
+  }
+
   findOne(id: number) {
     return `This action returns a #${id} gasto`;
   }
 
+  // -------------- Mutaciones
+  async create(createGastoInput: CreateGastoInput): Promise<Gasto> {
+    const newGasto = this.gastosRepository.create(createGastoInput);
+    return await this.gastosRepository.save(newGasto);
+  }
+
   async removeAll() {
-    await this.gastosRepository.update({}, {estado: false})
+    await this.gastosRepository.update({}, { estado: false });
     return true;
   }
 

@@ -11,7 +11,7 @@ export class GastosController {
 
   @Get()
   async removeAll(): Promise<boolean> {
-    const result = await this.gastosRepo.update({}, { estado: false });
+    await this.gastosRepo.update({}, { estado: false });
     return true;
   }
 }

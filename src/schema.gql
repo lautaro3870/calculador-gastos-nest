@@ -24,6 +24,17 @@ type GastosCategoriaMes {
   total: Float!
 }
 
+type GastosDiarios {
+  suma: Float!
+  fecha: DateTime!
+  mes: Int!
+}
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
 type Query {
   gastos: [Gasto!]!
   gastosPorCategoriaYMes: [GastosCategoriaMes!]!
@@ -31,6 +42,7 @@ type Query {
   gasto(id: Int!): Gasto!
   gastosPorCategoria(categoria: String!): [Gasto!]!
   removeAll: Boolean!
+  gastosDiarios: [GastosDiarios!]!
 }
 
 type Mutation {
