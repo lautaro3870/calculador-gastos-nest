@@ -54,7 +54,7 @@ export class GastosService {
 
   async getGastosDiarios(): Promise<GastosDiarios[]> {
     const query = `select sum(monto) AS suma, fecha AS fecha, extract(month from fecha) AS mes
-                    from gastos
+                    from gastos where estado = true
                     group by fecha, extract(month from fecha)`;
     return await this.gastosRepository.query(query);
   }
